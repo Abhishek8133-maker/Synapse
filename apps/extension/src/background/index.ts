@@ -179,7 +179,7 @@ class BackgroundService {
 
       const context = await this.getPageContext(tabId)
       await this.sendToAPI('CAPTURE_SCREENSHOT', {
-        imageData: dataUrl.replace(/^data:image\/png;base64,/, ''),
+        imageData: (dataUrl as string).replace(/^data:image\/png;base64,/, ''),
         fullPage,
         context,
       })
