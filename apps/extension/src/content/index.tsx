@@ -1,4 +1,3 @@
-import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { ContentScript } from './components/ContentScript'
 import { injectStyles } from '../shared/utils'
