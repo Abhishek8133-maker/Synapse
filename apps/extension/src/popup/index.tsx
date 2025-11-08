@@ -351,7 +351,7 @@ function QuickActionsTab({ pageContext, selectedText, onCaptureText }: {
       <div style={{ display: 'flex', gap: '8px', flexDirection: 'column' }}>
         <div style={{ fontSize: '14px', fontWeight: '500', marginBottom: '8px' }}>Other Actions:</div>
         <button
-          onClick={() => onCaptureText(pageContext.title, ThoughtType.ARTICLE, pageContext.title)}
+          onClick={() => onCaptureText(pageContext.title, ThoughtType.ARTICLE)}
           style={{
             padding: '12px',
             border: '1px solid #e5e7eb',
