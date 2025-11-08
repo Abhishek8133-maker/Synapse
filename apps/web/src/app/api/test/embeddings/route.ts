@@ -42,7 +42,7 @@ export async function GET(request: NextRequest) {
         "💳 Set up billing at https://platform.openai.com/account/billing",
         "💡 Add payment method to enable API usage",
         "📊 Check your usage limits at OpenAI dashboard",
-        "🔗 Current key: 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"
+        "🔗 API key configured in environment variables"
       ]
     }, { status: 500 })
   }
