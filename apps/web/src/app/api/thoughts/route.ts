@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
-import { ThoughtModel } from '@synapse/database'
+import { embeddingService } from '@/lib/embeddings'
+import { ThoughtModel, vectorSearchModel } from '@synapse/database'
 import { ThoughtSchema } from '@synapse/shared-types'
 
 export async function GET(request: NextRequest) {
