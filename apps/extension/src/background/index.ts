@@ -117,7 +117,7 @@ class BackgroundService {
 
         case 'CAPTURE_URL':
           const urlResult = await this.captureUrl(
-            sender.tab?.id,
+            sender.tab?.id!,
             message.data.url,
             message.data.context
           )
