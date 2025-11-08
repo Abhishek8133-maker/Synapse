@@ -54,6 +54,18 @@ export async function POST(request: NextRequest) {
       tags: classification.tags,
     })
 
+    // Generate and store embedding for vector search
+    try {
+      const searchContent = `${thought.title} ${thought.content} ${thought.tags?.join(' ') || ''}`
+      const embedding = await embeddingService.generateEmbedding(searchContent)
+
+      // Store in vector database
+      await vectorSearchModel.upsertThought(thought, embedding)
+    } catch (error) {
+      console.warn('Failed to generate embedding for captured text:', error)
+      // Continue without embedding - thought will still be searchable via keywords
+    }
+
     return NextResponse.json({
       success: true,
       data: {
