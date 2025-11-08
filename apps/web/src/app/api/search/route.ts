@@ -67,8 +67,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Apply additional filters
-    if (queryUnderstanding.filters?.priceRange && thoughts.length > 0) {
-      thoughts = thoughts.filter(thought => {
+    let filteredResults = searchResults
+    if (queryUnderstanding.filters?.priceRange) {
+      filteredResults = filteredResults.filter(result => {
+        const thought = result.thought
         if (thought.type === 'product' && thought.metadata?.price) {
           const price = thought.metadata.price as number
           const maxPrice = queryUnderstanding.filters?.priceRange?.max
@@ -78,43 +80,24 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    // Apply time filters
-    if (queryUnderstanding.timeFilters) {
-      const now = new Date()
-      const filterDate = new Date()
-
-      switch (queryUnderstanding.timeFilters.value) {
-        case '1d':
-          filterDate.setDate(now.getDate() - 1)
-          break
-        case '7d':
-          filterDate.setDate(now.getDate() - 7)
-          break
-        case '30d':
-          filterDate.setDate(now.getDate() - 30)
-          break
-        case 'today':
-          filterDate.setHours(0, 0, 0, 0)
-          break
-      }
-
-      thoughts = thoughts.filter(thought =>
-        new Date(thought.created_at) >= filterDate
-      )
-    }
-
     // Format search results
-    const results = thoughts.map(thought => ({
-      id: thought.id,
-      type: thought.type,
-      title: thought.title,
-      content: thought.content,
-      relevanceScore: calculateRelevanceScore(thought, query, queryUnderstanding),
-      highlights: extractHighlights(thought, queryUnderstanding.keywords),
-      metadata: thought.metadata,
-    }))
+    const results = filteredResults.map(result => {
+      const thought = result.thought
+      return {
+        id: thought.id,
+        type: thought.type,
+        title: thought.title,
+        content: thought.content,
+        relevanceScore: result.combinedScore,
+        semanticScore: result.semanticScore,
+        keywordScore: result.keywordScore,
+        highlights: extractHighlights(thought, queryUnderstanding.keywords),
+        metadata: thought.metadata,
+      }
+    })
 
     // Calculate facets
+    const thoughts = filteredResults.map(result => result.thought)
     const facets = {
       types: thoughts.reduce((acc, thought) => {
         acc[thought.type] = (acc[thought.type] || 0) + 1
@@ -142,8 +125,9 @@ export async function POST(request: NextRequest) {
     const searchResponse: any = {
       queryUnderstanding,
       results,
-      total: thoughts.length,
+      total: filteredResults.length,
       facets,
+      searchType: queryEmbedding.length > 0 ? 'hybrid' : 'keyword',
     }
 
     return NextResponse.json({
