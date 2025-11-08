@@ -315,7 +315,7 @@ function QuickActionsTab({ pageContext, selectedText, onCaptureText }: {
           </div>
           <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
             <button
-              onClick={() => onCaptureText(selectedText, ThoughtType.QUOTE, selectedText.substring(0, 50))}
+              onClick={() => onCaptureText(selectedText, ThoughtType.QUOTE)}
               style={{
                 padding: '8px 12px',
                 border: '1px solid #e5e7eb',
@@ -328,7 +328,7 @@ function QuickActionsTab({ pageContext, selectedText, onCaptureText }: {
               💭 Save as Quote
             </button>
             <button
-              onClick={() => onCaptureText(selectedText, ThoughtType.NOTE, selectedText.substring(0, 50))}
+              onClick={() => onCaptureText(selectedText, ThoughtType.NOTE)}
               style={{
                 padding: '8px 12px',
                 border: '1px solid #e5e7eb',
