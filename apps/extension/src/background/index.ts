@@ -227,12 +227,15 @@ class BackgroundService {
     try {
       const [result] = await chrome.scripting.executeScript({
         target: { tabId },
-        func: () => ({
-          url: window.location.href,
-          title: document.title,
-          favicon: this.getFavicon(),
-          selectedText: window.getSelection()?.toString() || '',
-        }),
+        func: () => {
+          const self: any = (window as any).self || window;
+          return {
+            url: self.location.href,
+            title: self.document.title,
+            favicon: self.getFavicon?.() || '',
+            selectedText: self.getSelection?.()?.toString() || '',
+          };
+        },
       })
 
       return {
