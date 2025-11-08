@@ -100,7 +100,7 @@ class BackgroundService {
       switch (message.type) {
         case 'CAPTURE_TEXT':
           const textResult = await this.captureText(
-            sender.tab?.id,
+            sender.tab?.id!,
             message.data.content,
             message.data.context
           )
