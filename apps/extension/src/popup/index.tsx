@@ -245,7 +245,7 @@ function Popup() {
       {/* Content */}
       <div style={{ padding: '16px', minHeight: '300px' }}>
         {activeTab === 'quick' && <QuickActionsTab pageContext={pageContext} selectedText={selectedText} onCaptureText={handleCaptureText} />}
-        {activeTab === 'text' && <TextCaptureTab selectedText={selectedText} onCapture={(content, type, title) => handleCaptureText(content, type)} />}
+        {activeTab === 'text' && <TextCaptureTab selectedText={selectedText} onCapture={(content, type, _title) => handleCaptureText(content, type)} />}
         {activeTab === 'screenshot' && <ScreenshotCaptureTab onCapture={handleCaptureScreenshot} />}
         {activeTab === 'url' && <UrlCaptureTab pageContext={pageContext} onCapture={handleCaptureUrl} />}
       </div>
