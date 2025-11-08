@@ -272,7 +272,7 @@ class ContentScriptManager {
     // Render React component
     this.root = createRoot(container)
     this.root.render(
-      React.createElement(ContentScript, {
+      (window as any).React.createElement(ContentScript, {
         selectedText,
         pageContext: this.getPageContext(),
         onClose: () => this.closeCaptureDialog(),
