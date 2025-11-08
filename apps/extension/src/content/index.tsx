@@ -371,7 +371,7 @@ class ContentScriptManager {
     const container = range.commonAncestorContainer
     const element = container.nodeType === Node.ELEMENT_NODE ? container : container.parentElement
 
-    return element?.tagName?.toLowerCase() || ''
+    return (element as any)?.tagName?.toLowerCase() || ''
   }
 
   private showSuccessNotification() {
