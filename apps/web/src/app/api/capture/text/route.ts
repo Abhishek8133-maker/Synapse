@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { claudeService } from '@/lib/claude'
-import { ThoughtModel } from '@synapse/database'
+import { embeddingService } from '@/lib/embeddings'
+import { ThoughtModel, vectorSearchModel } from '@synapse/database'
 import { CaptureTextRequestSchema } from '@synapse/shared-types'
 
 export async function POST(request: NextRequest) {
