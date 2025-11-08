@@ -1,5 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { ThoughtType } from '@synapse/shared-types'
+import { useState, useEffect } from 'react'
+
+// Define ThoughtType enum locally to avoid import issues
+enum ThoughtType {
+  NOTE = 'note',
+  QUOTE = 'quote',
+  TODO = 'todo',
+  ARTICLE = 'article',
+  PRODUCT = 'product'
+}
 
 interface ContentScriptProps {
   selectedText: string
