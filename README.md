@@ -193,4 +193,4 @@ Semantic search with natural language processing.
 
 ---
 
-Built with ❤️ by the Synapse team. Transform your fragmented thoughts into a coherent, searchable memory.
+Built by the Abhishek Sharma. Transform your fragmented thoughts into a coherent, searchable memory.
