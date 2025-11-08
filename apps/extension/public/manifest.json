@@ -1,0 +1,63 @@
+{
+  "manifest_version": 3,
+  "name": "Synapse - Knowledge Management",
+  "version": "1.0.0",
+  "description": "Capture, organize, and search your personal knowledge with AI-powered understanding",
+  "permissions": [
+    "activeTab",
+    "contextMenus",
+    "storage",
+    "scripting",
+    "notifications"
+  ],
+  "host_permissions": [
+    "http://localhost:*/*",
+    "https://*/*"
+  ],
+  "background": {
+    "service_worker": "../dist/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["../dist/content.js"],
+      "css": ["../dist/styles.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_title": "Synapse - Capture Knowledge",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "commands": {
+    "save-selection": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+S"
+      },
+      "description": "Save selected text to Synapse"
+    },
+    "screenshot": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+P"
+      },
+      "description": "Take screenshot and save to Synapse"
+    }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["icons/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
