@@ -187,7 +187,7 @@ class BackgroundService {
 
   private async captureScreenshot(tabId: number, fullPage: boolean = false) {
     try {
-      const dataUrl = await chrome.tabs.captureVisibleTab(undefined, {
+      const dataUrl = await chrome.tabs.captureVisibleTab(chrome.windows.WINDOW_ID_CURRENT, {
         format: 'png',
       })
 
