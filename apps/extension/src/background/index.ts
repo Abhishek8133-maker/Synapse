@@ -109,7 +109,7 @@ class BackgroundService {
 
         case 'CAPTURE_SCREENSHOT':
           const screenshotResult = await this.captureScreenshot(
-            sender.tab?.id,
+            sender.tab?.id!,
             message.data.fullPage
           )
           sendResponse({ success: true, data: screenshotResult })
