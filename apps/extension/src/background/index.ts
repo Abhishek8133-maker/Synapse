@@ -125,7 +125,7 @@ class BackgroundService {
           break
 
         case 'GET_PAGE_INFO':
-          const pageInfo = await this.getPageInfo(sender.tab?.id)
+          const pageInfo = await this.getPageInfo(sender.tab?.id!)
           sendResponse({ success: true, data: pageInfo })
           break
 
