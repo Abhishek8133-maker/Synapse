@@ -4,7 +4,7 @@ import { injectStyles } from '../shared/utils'
 
 // Main content script entry point
 class ContentScriptManager {
-  private root: React.Root | null = null
+  private root: any = null
   private container: HTMLElement | null = null
   private floatingButton: HTMLElement | null = null
 
