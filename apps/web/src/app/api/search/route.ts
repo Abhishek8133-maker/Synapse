@@ -29,13 +29,42 @@ export async function POST(request: NextRequest) {
     // Process query with Claude to understand intent
     const queryUnderstanding = await claudeService.processSearchQuery(query)
 
-    // Search thoughts using processed query
-    let thoughts = await ThoughtModel.search(session.user.id, query, {
-      limit,
-      offset,
-      types: queryUnderstanding.contentTypes.length > 0 ? queryUnderstanding.contentTypes : undefined,
-      tags: filters.tags || queryUnderstanding.filters?.tags,
-    })
+    // Generate embedding for semantic search
+    let queryEmbedding: number[] = []
+    try {
+      queryEmbedding = await embeddingService.generateEmbedding(query)
+    } catch (error) {
+      console.warn('Failed to generate embedding, falling back to keyword search:', error)
+      // Use local embedding as fallback
+      queryEmbedding = await embeddingService.generateLocalEmbedding(query)
+    }
+
+    // Perform hybrid search (vector + keyword)
+    let searchResults
+    try {
+      searchResults = await vectorSearchModel.hybridSearch(session.user.id, query, queryEmbedding, {
+        limit,
+        type: queryUnderstanding.contentTypes.length > 0 ? queryUnderstanding.contentTypes[0] : undefined,
+        tags: filters.tags || queryUnderstanding.filters?.tags,
+        dateRange: queryUnderstanding.timeFilters?.value,
+      })
+    } catch (error) {
+      console.warn('Vector search failed, falling back to keyword search:', error)
+      // Fallback to traditional search
+      const thoughts = await ThoughtModel.search(session.user.id, query, {
+        limit,
+        offset,
+        types: queryUnderstanding.contentTypes.length > 0 ? queryUnderstanding.contentTypes : undefined,
+        tags: filters.tags || queryUnderstanding.filters?.tags,
+      })
+
+      searchResults = thoughts.map(thought => ({
+        thought,
+        semanticScore: 0,
+        keywordScore: calculateRelevanceScore(thought, query, queryUnderstanding),
+        combinedScore: calculateRelevanceScore(thought, query, queryUnderstanding),
+      }))
+    }
 
     // Apply additional filters
     if (queryUnderstanding.filters?.priceRange && thoughts.length > 0) {
