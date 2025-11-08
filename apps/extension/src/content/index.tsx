@@ -88,7 +88,7 @@ class ContentScriptManager {
   }
 
   private setupTextSelectionListener() {
-    let selectionTimeout: NodeJS.Timeout
+    let selectionTimeout: number
 
     document.addEventListener('mouseup', () => {
       clearTimeout(selectionTimeout)
