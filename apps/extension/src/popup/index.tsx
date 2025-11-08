@@ -292,7 +292,7 @@ function Popup() {
 function QuickActionsTab({ pageContext, selectedText, onCaptureText }: {
   pageContext: PageContext
   selectedText: string
-  onCaptureText: (content: string, type: ThoughtType, title: string) => void
+  onCaptureText: (content: string, type: ThoughtType) => void
 }) {
   return (
     <div>
