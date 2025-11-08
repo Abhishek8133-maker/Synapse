@@ -1,6 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
-import { ThoughtType } from '@synapse/shared-types'
+
+// Define ThoughtType enum locally to avoid import issues
+enum ThoughtType {
+  NOTE = 'note',
+  QUOTE = 'quote',
+  TODO = 'todo',
+  ARTICLE = 'article',
+  PRODUCT = 'product'
+}
 
 interface PageContext {
   url: string
