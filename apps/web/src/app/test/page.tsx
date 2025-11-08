@@ -67,8 +67,8 @@ export default function TestPage() {
           <h2 className="text-xl font-semibold mb-4">API Configuration Test</h2>
           <p className="text-gray-600 mb-4">
             Test if your OpenAI API key is working correctly.
-            <span className="ml-2 px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded">
-              ⚠️ Current key returned 401 error - please update with a valid key
+            <span className="ml-2 px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">
+              ✅ API key is valid (429 error - requires billing setup)
             </span>
           </p>
 
