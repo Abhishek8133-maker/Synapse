@@ -5,7 +5,7 @@ import { injectStyles } from '../shared/utils'
 // Main content script entry point
 class ContentScriptManager {
   private root: any = null
-  private container: HTMLElement | null = null
+  // private container: HTMLElement | null = null // not used
   private floatingButton: HTMLElement | null = null
 
   constructor() {
