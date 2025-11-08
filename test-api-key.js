@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 // Simple test script to verify OpenAI API key
-const API_KEY = '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';
+// API key should be loaded from environment variables
+const API_KEY = process.env.OPENAI_API_KEY || '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';
 
 async function testOpenAIKey() {
   console.log('🧪 Testing OpenAI API Key...');
