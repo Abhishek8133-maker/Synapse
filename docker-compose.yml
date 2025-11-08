@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: synapse-postgres
+    environment:
+      POSTGRES_DB: synapse
+      POSTGRES_USER: synapse
+      POSTGRES_PASSWORD: synapse_dev_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  litellm:
+    image: ghcr.io/berriai/litellm:main
+    container_name: synapse-litellm
+    environment:
+      DATABASE_URL: "postgresql://synapse:synapse_dev_password@postgres:5432/litellm"
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./docker/litellm/config.yaml:/app/config.yaml
+    depends_on:
+      - postgres
+
+  redis:
+    image: redis:7-alpine
+    container_name: synapse-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+
+volumes:
+  postgres_data:
+  redis_data:
