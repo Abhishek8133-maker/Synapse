@@ -58,7 +58,7 @@ function Popup() {
     }
   }
 
-  const handleCaptureText = async (content: string, type: ThoughtType, title: string) => {
+  const handleCaptureText = async (content: string, type: ThoughtType) => {
     if (!pageContext) return
 
     setIsLoading(true)
