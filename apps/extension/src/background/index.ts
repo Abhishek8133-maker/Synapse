@@ -1,4 +1,18 @@
-import { ExtensionMessage, PageContext } from '@synapse/shared-types'
+// Define types locally to avoid import issues
+interface ExtensionMessage {
+  type: 'CAPTURE_TEXT' | 'CAPTURE_SCREENSHOT' | 'CAPTURE_URL' | 'GET_PAGE_INFO'
+  data: any
+}
+
+interface PageContext {
+  url: string
+  title: string
+  favicon: string
+  selectedElement: string
+  author: string
+  publishDate: string
+  selectedText: string
+}
 
 // Extension background service worker
 class BackgroundService {
