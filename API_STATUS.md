@@ -3,6 +3,7 @@
 ## ✅ **API Key Configuration Complete**
 
 **API Key:** `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`
+*Configured in `.env.local` (gitignored for security)*
 
 **Status:** ✅ **Valid API Key** - Requires billing setup
 
